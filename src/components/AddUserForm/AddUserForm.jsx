@@ -2,7 +2,7 @@ import { Grid, GridItem, Input, Button, Heading } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
 import { add } from "redux/users/users-slice";
 import { nanoid } from "nanoid";
-
+import { Notify } from "notiflix";
 
 export const AddUserForm = () => {
 const dispatch = useDispatch()
@@ -12,6 +12,10 @@ const dispatch = useDispatch()
     const name = form.elements.name.value;
     const email = form.elements.email.value;
     const age = form.elements.age.value;
+    if (!name || !age || !email) {
+      Notify.failure('Sorry, but you didn&#180;t enter a value in the field')
+      return
+       }
     dispatch(add({
       id: nanoid(),
       name,
